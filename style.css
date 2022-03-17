@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -15,9 +16,8 @@ body {
 
 .weather-container {
   padding: 30px;
-  width: 250px;
-  /* height: 350px; */
-  border-radius: 15px;
+  width: 300px;
+  border-radius: 25px;
   background-color: rgb(93, 182, 241);
 }
 
@@ -31,11 +31,11 @@ body {
 }
 
 .top {
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 .bottom {
   justify-content: flex-end;
-  padding-top: 40px;
+  padding-top: 20px;
 }
 
 .main-info {
@@ -61,13 +61,13 @@ body {
 }
 
 .weather-info .icon {
-  width: 50px;
+  width: 90px;
 }
 .weather-info .temp {
   font-size: 45pt;
   font-weight: bold;
 }
-.weather-info .temp-info {
+.weather-info .temp-text {
   font-size: 17pt;
   font-weight: bold;
 }

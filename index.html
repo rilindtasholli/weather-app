@@ -8,7 +8,9 @@
     <meta name="author" content="Rilind Tasholli">
     <meta name="description" content="Weather app created with vanilla JS">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
 </head>
 <body>
     <div class="weather-container">
@@ -16,14 +18,17 @@
             <div class="main-info">
                 <span class="day">Tuesday</span>
                 <span class="date">15 Jan 2019</span>
-                <span class="location">Paris, FR</span>
+                <span class="location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span></span>
+                </span>
             </div>
         </div>
         <div class="bottom">
             <div class="weather-info">
                 <img class="icon" src="" alt="weather icon">
                 <span class="temp">29°C</span>
-                <span class="temp-info">Sunny</span>
+                <span class="temp-text">Sunny</span>
             </div>
         </div>
     </div>
