@@ -133,7 +133,8 @@ body {
   border-radius: 13px;
   overflow: hidden;
   height: 100%;
-  max-height: 130px;
+  max-height: 150px;
+  box-shadow: 0px 3px 8px 1px rgba(37, 37, 37, 0.3);
 }
 
 .forecast .item {
@@ -148,10 +149,26 @@ body {
 }
 .forecast .item img {
   width: 50px;
-  filter: drop-shadow(0px 1px 1px rgba(17, 17, 17, 0.6));
+  filter: drop-shadow(0px 1px 1px rgba(17, 17, 17, 0.7));
+}
+.forecast .item .day {
+  margin-bottom: 3px;
+}
+.forecast .item .max-temp {
+  font-weight: bold;
+}
+.forecast .item .min-temp {
+  font-size: 9pt;
+  opacity: 0.65;
+}
+
+.forecast > div:first-child {
+  background-color: rgba(255, 255, 255, 0.75);
+  color: rgb(44, 48, 56);
+  border-radius: inherit;
 }
 
 .active {
   background-color: rgba(255, 255, 255, 0.966);
-  color: rgb(19, 19, 20);
+  color: rgb(44, 48, 56);
 }
