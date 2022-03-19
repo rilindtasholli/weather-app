@@ -53,6 +53,8 @@ function renderDetailsData(data){
     document.querySelector('.feels-like .info-value').innerText = `${data.weatherData.current.feels_like.toFixed()} °C`
     document.querySelector('.humidity .info-value').innerText = `${data.weatherData.current.humidity.toFixed()} %`
     document.querySelector('.wind .info-value').innerText = `${data.weatherData.current.wind_speed.toFixed()} km/h`
+    document.querySelector('.wind .direction').style.transform = `rotate(${data.weatherData.current.wind_deg + 45 + 90}deg)`
+
 
     let forecastDays = [];
     let day = null;

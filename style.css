@@ -125,6 +125,11 @@ body {
   color: rgb(219, 217, 217);
 }
 
+.wind .direction {
+  /* transform: rotate(45deg); */
+  margin: 0 3px;
+}
+
 .forecast {
   display: flex;
   /* border: solid 1px white; */
