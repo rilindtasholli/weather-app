@@ -1,8 +1,35 @@
 const apiKey = '5ad5366ef19803003112548fec639f07';
-// const cityInput = 'Buenaventura';
-const cityInput = 'Alaska';
+const defaultCity = 'Prishtina';
 
-async function getData(){
+search(defaultCity);
+
+document.querySelector('#search').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        search(this.value);
+    }
+});
+document.querySelector('.search-container button').addEventListener('click', function (e) {
+    let searchString = document.querySelector('#search').value;
+    search(searchString);
+});
+
+function search(searchString){
+    
+    getData(searchString).then((response)=>{
+        document.querySelector('.weather-container').style.visibility = 'unset';
+
+        displayCurrentData(response);
+        displayForecast(response.weatherData)
+        displayDayDetailsData(response.weatherData.daily[0]);
+
+        document.querySelector('#search').value = '';
+    }).catch((err)=>{
+        console.error(err);
+    });
+
+}
+
+async function getData(cityInput){
 
     let result = {
         locationName: '',
@@ -59,6 +86,10 @@ function displayCurrentData(data){
 }
 
 function displayForecast(data){
+    let currentForecast = document.querySelectorAll('.forecast .item');
+    currentForecast.forEach(day => {
+        day.remove()
+    })
 
     let date = new Date();
     date = changeTimezone(date, data.timezone)
@@ -76,6 +107,7 @@ function displayForecast(data){
     }
 
     let forecast = document.querySelector('.forecast');
+  
 
     forecastDays.forEach(day => {
         forecast.insertAdjacentHTML('beforeend', 
@@ -119,13 +151,3 @@ function changeTimezone(date, ianatz) {
     // so 12:00 in Toronto is 17:00 UTC
     return new Date(date.getTime() - diff); // needs to substract
 }
-
-
-getData().then((response)=>{
-    // console.log(response);
-    displayCurrentData(response);
-    displayForecast(response.weatherData)
-    displayDayDetailsData(response.weatherData.daily[0]);
-}).catch((err)=>{
-    console.error(err);
-});

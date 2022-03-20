@@ -15,8 +15,38 @@ body {
   background-color: rgb(69, 75, 87);
 }
 
+/*------ search ------*/
+
+.search-container {
+  margin: 20px 0;
+  display: flex;
+  border-radius: 150px;
+  overflow: hidden;
+  /* border: dashed 1px red; */
+  width: 100%;
+  max-width: 260px;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.27);
+  background-color: rgb(62, 67, 78);
+}
+.search-container input {
+  padding: 10px 20px;
+  width: 100%;
+  font-size: 11pt;
+  letter-spacing: 1px;
+  color: white;
+  background-color: transparent;
+  border: none;
+}
+
+.search-container button {
+  padding: 0 15px;
+  border: none;
+}
+/*------ weather ------*/
+
 .weather-container {
   display: flex;
+  visibility: hidden;
   /* border: dashed 1px red; */
   background-color: rgb(44, 48, 56);
   border-radius: 25px;
