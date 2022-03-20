@@ -3,15 +3,24 @@ const defaultCity = 'Prishtina';
 
 search(defaultCity);
 
-document.querySelector('#search').addEventListener('keypress', function (e) {
+document.querySelector('#search').addEventListener('keypress', function(e){
     if (e.key === 'Enter') {
         search(this.value);
     }
 });
-document.querySelector('.search-container button').addEventListener('click', function (e) {
+document.querySelector('.search-container button').addEventListener('click', function(){
     let searchString = document.querySelector('#search').value;
     search(searchString);
 });
+
+function showError(){
+    let errorMessage = document.querySelector('.error');
+    errorMessage.style.opacity = 1;
+
+    setTimeout(function(){
+        errorMessage.style.opacity = 0;
+    }, 2000)
+}
 
 function search(searchString){
     
@@ -25,6 +34,7 @@ function search(searchString){
         document.querySelector('#search').value = '';
     }).catch((err)=>{
         console.error(err);
+        showError();
     });
 
 }
