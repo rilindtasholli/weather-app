@@ -1,5 +1,6 @@
 const apiKey = '5ad5366ef19803003112548fec639f07';
-const cityInput = 'Paris';
+// const cityInput = 'Buenaventura';
+const cityInput = 'Alaska';
 
 async function getData(){
 
@@ -22,7 +23,7 @@ async function getData(){
         }
     });
 
-    await fetch(`https://api.openweathermap.org/data/2.5/onecall?units=metric&lat=${result.lat}&lon=${result.lon}&appid=${apiKey}`)
+    await fetch(`https://api.openweathermap.org/data/2.5/onecall?units=metric&lat=${result.lat}&lon=${result.lon}&exclude=minutely&appid=${apiKey}`)
     .then(response => response.json())
     .then(data => {
         result.weatherData = data;
@@ -31,37 +32,45 @@ async function getData(){
     return result;
 }
 
-function renderMainData(data){
-    console.log('renderMainData')
+function displayDate(date){
     var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    
-    const date = new Date();
     document.querySelector('.main-info .day').innerText = days[date.getDay()];
     document.querySelector('.main-info .date').innerText = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+function displayCurrentData(data){
+    const date = new Date();
+    displayDate(changeTimezone(date, data.weatherData.timezone));
     
     document.querySelector('.main-info .location span').innerText = `${data.locationName}, ${data.countryCode}`;
     document.querySelector('.weather-info .icon').src = `http://openweathermap.org/img/wn/${data.weatherData.current.weather[0].icon}@2x.png`;
     document.querySelector('.weather-info .temp').innerText = `${data.weatherData.current.temp.toFixed()}°C`;
     document.querySelector('.weather-info .temp-text').innerText = data.weatherData.current.weather[0].main;
+    document.querySelector('.weather-info .feels-like .info-value').innerText = `${data.weatherData.current.feels_like.toFixed()}°C`
+    document.querySelector('.weather-info .humidity .info-value').innerText = `${data.weatherData.current.humidity.toFixed()}%`
+    document.querySelector('.weather-info .visibility .info-value').innerText = `${(data.weatherData.current.visibility/1000).toFixed(1)}km`
+    document.querySelector('.weather-info .wind .info-value').innerText = `${data.weatherData.current.wind_speed.toFixed()}km/h`
+    document.querySelector('.weather-info .wind .direction').style.transform = `rotate(${data.weatherData.current.wind_deg + 45 + 90}deg)`
+    document.querySelector('.weather-info .dew-point .info-value').innerText = `${data.weatherData.current.dew_point.toFixed()}°C`;
+    document.querySelector('.weather-info .uv .info-value').innerText = data.weatherData.current.uvi.toFixed();
+    document.querySelector('.weather-info .temp-description').innerText = data.weatherData.current.weather[0].description[0].toUpperCase() + data.weatherData.current.weather[0].description.substring(1);
+    
 }
 
-function renderDetailsData(data){
+function displayForecast(data){
+
+    let date = new Date();
+    date = changeTimezone(date, data.timezone)
+    
     var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const date = new Date();
-
-    document.querySelector('.feels-like .info-value').innerText = `${data.weatherData.current.feels_like.toFixed()} °C`
-    document.querySelector('.humidity .info-value').innerText = `${data.weatherData.current.humidity.toFixed()} %`
-    document.querySelector('.wind .info-value').innerText = `${data.weatherData.current.wind_speed.toFixed()} km/h`
-    document.querySelector('.wind .direction').style.transform = `rotate(${data.weatherData.current.wind_deg + 45 + 90}deg)`
-
-
     let forecastDays = [];
     let day = null;
     let count = date.getDay();
+
     for(let i = 0; i <= 3; i++){
-        if(count >= 6) count=0;
-        day = data.weatherData.daily[i];
+        if(count > 6) count=0;
+        day = data.daily[i];
         day.dayName = days[count++]
         forecastDays.push(day)
     }
@@ -82,20 +91,41 @@ function renderDetailsData(data){
     })
 }
 
+function displayDayDetailsData(data){
+
+    document.querySelector('.weather-details .description .desc span').innerText = data.weather[0].description[0].toUpperCase() + data.weather[0].description.substring(1);
+    document.querySelector('.weather-details .description p').innerText = `The high will be ${data.temp.max.toFixed()}°C, the low will be ${data.temp.min.toFixed()}°C`;
+    document.querySelector('.weather-details .description img').src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    document.querySelector('.weather-details .humidity .info-value').innerText = `${data.humidity.toFixed()} %`;
+    document.querySelector('.weather-details .wind .info-value').innerText = `${data.wind_speed.toFixed()} km/h`;
+    document.querySelector('.weather-details .wind .direction').style.transform = `rotate(${data.wind_deg + 45 + 90}deg)`;
+    document.querySelector('.weather-details .rain .info-value').innerText = `${data.rain || data.snow || data.drizzle || 0}mm ( ${data.pop *100}% )`;
+    document.querySelector('.weather-details .pressure .info-value').innerText = `${data.pressure} hPa`;
+    document.querySelector('.weather-details .dew-point .info-value').innerText = `${data.dew_point.toFixed()}°C`;
+    document.querySelector('.weather-details .uv .info-value').innerText = data.uvi.toFixed();
+}
+
+function changeTimezone(date, ianatz) {
+
+    // suppose the date is 12:00 UTC
+    var invdate = new Date(date.toLocaleString('en-US', {
+      timeZone: ianatz
+    }));
+  
+    // then invdate will be 07:00 in Toronto
+    // and the diff is 5 hours
+    var diff = date.getTime() - invdate.getTime();
+  
+    // so 12:00 in Toronto is 17:00 UTC
+    return new Date(date.getTime() - diff); // needs to substract
+}
+
 
 getData().then((response)=>{
-    console.log(response);
-    renderMainData(response);
-    renderDetailsData(response);
+    // console.log(response);
+    displayCurrentData(response);
+    displayForecast(response.weatherData)
+    displayDayDetailsData(response.weatherData.daily[0]);
 }).catch((err)=>{
     console.error(err);
 });
-
-// var mylist = document.querySelector('.forecast');
-// mylist.insertAdjacentHTML('beforeend', 
-// ` <div class="item active">
-// <img src="" alt="">
-// <span class="day">Tue</span>
-// <span class="temp">29°C</span>
-// </div>`
-// );

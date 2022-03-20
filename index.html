@@ -7,14 +7,14 @@
     <title>Weather App</title>
     <meta name="author" content="Rilind Tasholli">
     <meta name="description" content="Weather app created with vanilla JS">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
 </head>
 <body>
     <div class="weather-container">
-        <div class="weather-main">
+        <div class="current-weather">
             <div class="top">
                 <div class="main-info">
                     <span class="day">Tuesday</span>
@@ -28,53 +28,87 @@
             <div class="bottom">
                 <div class="weather-info">
                     <img class="icon" src="" alt="weather icon">
+                    <span class="temp-text">Clear</span>
+                    <span class="temp-description">Clear sky</span>
                     <span class="temp">29°C</span>
-                    <span class="temp-text">Sunny</span>
+                    <div class="current-details">
+                        <div class="info feels-like">
+                            <span class="info-text">Feels Like:</span>
+                            <span class="info-value">25°C</span>
+                        </div>
+                        <div class="info wind">
+                            <span class="info-text">Wind:</span>
+                            <i class="fa-solid fa-location-arrow direction"></i>
+                            <span class="info-value">0 km/h</span>
+                        </div>
+                        <div class="info humidity">
+                            <span class="info-text">Humidity:</span>
+                            <span class="info-value">34%</span>
+                        </div>
+                        <div class="info visibility">
+                            <span class="info-text">Visibility:</span>
+                            <span class="info-value">10km</span>
+                        </div>
+                        <div class="info dew-point">
+                            <span class="info-text">Dew point:</span>
+                            <span class="info-value">1°C</span>
+                        </div>
+                        <div class="info uv">
+                            <span class="info-text">UVI:</span>
+                            <span class="info-value">2</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="weather-details">
+            <div class="forecast">
+                <!--Populated from javascript-->
+            </div>
+
             <div class="main-info">
-                <div class="info feels-like">
-                    <span class="info-text"><i class="fa-solid fa-temperature-half"></i> Feels Like</span>
-                    <span class="info-value">25°C</span>
+                <div class="description">
+                    <div class="desc">
+                        <img src="" alt="">
+                        <span>Moderate rain</span>
+                    </div>
+                    <p>The high will be 28°C, the low will be 16°C</p>
                 </div>
-                <div class="info humidity">
-                    <span class="info-text"><i class="fa-solid fa-droplet"></i> Humidity</span>
-                    <span class="info-value">34%</span>
+                
+                <div class="info rain">
+                    <span class="info-text"><i class="fa-solid fa-cloud-rain"></i> Precipitation </span>
+                    <span class="info-value">0%</span>
                 </div>
+
                 <div class="info wind">
                     <span class="info-text"><i class="fa-solid fa-wind"></i> Wind</span>
                     <div>
                         <i class="fa-solid fa-location-arrow direction"></i>
-                        <span class="info-value"> 0 km/h</span>
+                        <span class="info-value">0 km/h</span>
                     </div>
                     
                 </div>
-            </div>
 
-            <div class="forecast">
-                <!-- <div class="item active">
-                    <img src="" alt="">
-                    <span class="day">Tue</span>
-                    <span class="temp">29°C</span>
+                <div class="info pressure">
+                    <span class="info-text"><i class="fa-solid fa-gauge-simple"></i> Pressure</span>
+                    <span class="info-value">1017 hPa</span>
                 </div>
-                <div class="item">
-                    <img src="" alt="">
-                    <span class="day">Tue</span>
-                    <span class="temp">29°C</span>
+
+                <div class="info humidity">
+                    <span class="info-text"><i class="fa-solid fa-droplet"></i> Humidity</span>
+                    <span class="info-value">34%</span>
                 </div>
-                <div class="item">
-                    <img src="" alt="">
-                    <span class="day">Tue</span>
-                    <span class="temp">29°C</span>
-                </div> -->
-                <!-- <div class="item">
-                    <img src="" alt="">
-                    <span class="day">Tue</span>
-                    <span class="temp">29°C</span>
-                </div> -->
+                
+                <div class="info dew-point">
+                    <span class="info-text"><i class="fa-solid fa-temperature-half"></i> Dew point</span>
+                    <span class="info-value">-15°C</span>
+                </div>
+
+                <div class="info uv">
+                    <span class="info-text"><i class="fa-solid fa-sun"></i> UV Index</span>
+                    <span class="info-value">2</span>
+                </div>
             </div>
         </div>
     </div>
