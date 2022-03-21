@@ -1,5 +1,5 @@
 const apiKey = '5ad5366ef19803003112548fec639f07';
-const defaultCity = 'Prishtina';
+let defaultCity = localStorage.getItem('defaultCity') || 'Prishtina'
 
 search(defaultCity);
 
@@ -32,6 +32,8 @@ function search(searchString){
         displayDayDetailsData(response.weatherData.daily[0]);
 
         document.querySelector('#search').value = '';
+        localStorage.setItem('defaultCity', searchString);
+
     }).catch((err)=>{
         // console.error(err);
         showError();
