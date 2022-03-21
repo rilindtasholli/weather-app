@@ -44,9 +44,16 @@ body {
   border: none;
 }
 
+.search-container input:focus {
+  outline-style: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
 .search-container button {
   padding: 0 15px;
   border: none;
+  cursor: pointer;
 }
 /*------ weather ------*/
 
@@ -264,4 +271,31 @@ body {
 .active {
   background-color: rgba(255, 255, 255, 0.966);
   color: rgb(44, 48, 56);
+}
+
+/* ------- footer -------*/
+footer {
+  margin: 50px 0 10px;
+  opacity: 0.18;
+}
+
+footer a {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+/*-------------- Media queries --------------*/
+
+@media only screen and (max-width: 730px) {
+  .weather-container {
+    flex-direction: column;
+    margin: 0 20px 20px;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .weather-container {
+    width: 93%;
+  }
 }

@@ -33,7 +33,7 @@ function search(searchString){
 
         document.querySelector('#search').value = '';
     }).catch((err)=>{
-        console.error(err);
+        // console.error(err);
         showError();
     });
 
