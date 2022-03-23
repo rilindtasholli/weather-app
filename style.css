@@ -243,6 +243,8 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10px 15px;
+  border-radius: inherit;
+  transition: 0.3s;
   /* background-color: rgb(92, 91, 89); */
   /* margin: 1px; */
   /* flex-grow: 1; */
@@ -262,15 +264,16 @@ body {
   opacity: 0.65;
 }
 
-.forecast > div:first-child {
+.forecast .item:hover {
+  cursor: pointer;
+  background-color: rgba(167, 167, 172, 0.089);
+}
+
+.forecast .active,
+.forecast .active:hover {
   background-color: rgba(255, 255, 255, 0.75);
   color: rgb(44, 48, 56);
   border-radius: inherit;
-}
-
-.active {
-  background-color: rgba(255, 255, 255, 0.966);
-  color: rgb(44, 48, 56);
 }
 
 /* ------- footer -------*/

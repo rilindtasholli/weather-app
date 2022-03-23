@@ -1,6 +1,14 @@
 const apiKey = '5ad5366ef19803003112548fec639f07';
 let defaultCity = localStorage.getItem('defaultCity') || 'Prishtina'
 
+let result = {
+    locationName: '',
+    countryCode: '',
+    lon: '',
+    lat: '',
+    weatherData: null
+}
+
 search(defaultCity);
 
 document.querySelector('#search').addEventListener('keypress', function(e){
@@ -24,12 +32,12 @@ function showError(){
 
 function search(searchString){
     
-    getData(searchString).then((response)=>{
+    getData(searchString).then(()=>{
         document.querySelector('.weather-container').style.visibility = 'unset';
 
-        displayCurrentData(response);
-        displayForecast(response.weatherData)
-        displayDayDetailsData(response.weatherData.daily[0]);
+        displayCurrentData(result);
+        displayForecast(result.weatherData)
+        displayDayDetailsData(result.weatherData.daily[0]);
 
         document.querySelector('#search').value = '';
         localStorage.setItem('defaultCity', searchString);
@@ -42,14 +50,6 @@ function search(searchString){
 }
 
 async function getData(cityInput){
-
-    let result = {
-        locationName: '',
-        countryCode: '',
-        lon: '',
-        lat: '',
-        weatherData: null
-    }
 
     await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&appid=${apiKey}`)
     .then(response => response.json())
@@ -68,7 +68,6 @@ async function getData(cityInput){
         result.weatherData = data;
     });
 
-    return result;
 }
 
 function displayDate(date){
@@ -97,15 +96,10 @@ function displayCurrentData(data){
     
 }
 
-function displayForecast(data){
-    let currentForecast = document.querySelectorAll('.forecast .item');
-    currentForecast.forEach(day => {
-        day.remove()
-    })
-
+function getForecastDays(data){
     let date = new Date();
-    date = changeTimezone(date, data.timezone)
-    
+    date = changeTimezone(date, data.timezone);
+
     var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     let forecastDays = [];
     let day = null;
@@ -117,14 +111,25 @@ function displayForecast(data){
         day.dayName = days[count++]
         forecastDays.push(day)
     }
+    
+    return forecastDays;
+}
+
+function displayForecast(data){
+    let currentForecast = document.querySelectorAll('.forecast .item');
+    currentForecast.forEach(day => {
+        day.remove()
+    })
+    
+    let forecastDays = getForecastDays(data);
 
     let forecast = document.querySelector('.forecast');
   
 
-    forecastDays.forEach(day => {
+    forecastDays.forEach((day, i) => {
         forecast.insertAdjacentHTML('beforeend', 
         `
-        <div class="item">
+        <div class="item ${i == 0 ? 'active' : ''}" onclick="handleDaySelect(${i})">
             <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="">
             <span class="day">${day.dayName}</span>
             <span class="max-temp">${day.temp.max.toFixed()}°C</span>
@@ -147,6 +152,18 @@ function displayDayDetailsData(data){
     document.querySelector('.weather-details .pressure .info-value').innerText = `${data.pressure} hPa`;
     document.querySelector('.weather-details .dew-point .info-value').innerText = `${data.dew_point.toFixed()}°C`;
     document.querySelector('.weather-details .uv .info-value').innerText = data.uvi.toFixed();
+}
+
+function handleDaySelect(i){
+    let currentForecast = document.querySelectorAll('.forecast .item');
+  
+    currentForecast.forEach(day => {
+        day.classList.remove('active');
+    })
+
+    currentForecast[i].classList.add('active');
+
+    displayDayDetailsData(result.weatherData.daily[i]);
 }
 
 function changeTimezone(date, ianatz) {

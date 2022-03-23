@@ -7,6 +7,7 @@ Fun side project made with vanilla JavaScript
 ### Screenshot
 
 ![](https://raw.github.com/rilindtasholli/weather-app/main/screenshots/prishtina.png)
+![](https://raw.github.com/rilindtasholli/weather-app/main/screenshots/new-york.png)
 ![](https://raw.github.com/rilindtasholli/weather-app/main/screenshots/barcelona.png)
 ![](https://raw.github.com/rilindtasholli/weather-app/main/screenshots/alaska.png)
 ![](https://raw.github.com/rilindtasholli/weather-app/main/screenshots/tokyo.png)
