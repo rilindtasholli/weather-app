@@ -148,7 +148,7 @@ function displayDayDetailsData(data){
     document.querySelector('.weather-details .humidity .info-value').innerText = `${data.humidity.toFixed()} %`;
     document.querySelector('.weather-details .wind .info-value').innerText = `${data.wind_speed.toFixed()} km/h`;
     document.querySelector('.weather-details .wind .direction').style.transform = `rotate(${data.wind_deg + 45 + 90}deg)`;
-    document.querySelector('.weather-details .rain .info-value').innerText = `${data.rain || data.snow || data.drizzle || 0}mm ( ${data.pop *100}% )`;
+    document.querySelector('.weather-details .rain .info-value').innerText = `${data.rain || data.snow || data.drizzle || 0}mm ( ${(data.pop *100).toFixed()}% )`;
     document.querySelector('.weather-details .pressure .info-value').innerText = `${data.pressure} hPa`;
     document.querySelector('.weather-details .dew-point .info-value').innerText = `${data.dew_point.toFixed()}°C`;
     document.querySelector('.weather-details .uv .info-value').innerText = data.uvi.toFixed();

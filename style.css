@@ -75,7 +75,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 30px;
+  padding: 30px 45px;
   border-radius: 25px;
   min-width: 250px;
   /* background-color: rgb(93, 182, 241); */
@@ -150,8 +150,8 @@ body {
 }
 
 .weather-info .current-details {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   /* border: dashed 1px red; */
   /* width: 220px; */
   max-width: 260px;
@@ -300,5 +300,8 @@ footer a {
 @media only screen and (max-width: 460px) {
   .weather-container {
     width: 93%;
+  }
+  .current-weather {
+    padding: 30px;
   }
 }
